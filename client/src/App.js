@@ -13,14 +13,6 @@ import Login from './Components/login/login';
 import Cargando from './Components/Loading/loading';
 
 function App() {
-const [load,setLoad]  = useState(true)
-  const dispatch = useDispatch()
-  useEffect(() => {
-    dispatch(getArtObjects()).then(() => setLoad(false));
-  }, [])
-  if(load){
-    return <Cargando/>
-  }
   return (
     <div className='App'>
       {/* vamos a renderizar cada uno de los componentes con su ruta correspondiente */}
