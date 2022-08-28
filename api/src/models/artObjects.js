@@ -3,7 +3,7 @@ const { DataTypes } = require('sequelize');
 // Luego le injectamos la conexion a sequelize.
 module.exports = (sequelize) => {
   // defino el modelo
-  sequelize.define('artObjects', {
+  sequelize.define('artobjects', {
     id: {
       type: DataTypes.UUID,//es un identifacor random con letras y numeros
       defaultValue: DataTypes.UUIDV4, //me genera automaticamente un identificador universal
