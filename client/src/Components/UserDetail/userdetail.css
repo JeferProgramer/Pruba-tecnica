@@ -1,0 +1,76 @@
+body{
+    margin: 0;
+	padding: 0;
+	font-family: 'Lato';
+}
+.CardUser{
+    color: rgb(14, 1, 1);
+	height: 100%;
+	width: auto;
+	margin: 50px auto;
+	display: flex;
+	max-width: 770px;
+	background-image: linear-gradient(to top, #9af5ff 0%, #cffed0 99%, #dbfecf 100%);
+    box-shadow: 0 0 4px rgb(255 240 243), 0 0 8px rgb(204, 255, 251), 0 0 12px rgb(179, 249, 255), 0 0 16px rgb(143, 255, 238), 0 0 20px rgb(117, 255, 244), 0 0 24px rgb(77, 243, 255);
+    border-radius: 20px;
+}
+.DetailUser{
+    width: 100%;
+	padding: 30px;
+	margin-top: -25px;
+}
+
+.title{
+    display: flex;
+    justify-content: center;
+    font-size: 30px;
+	font-family: "Verdana";
+    padding-left: 2%;
+}
+.detailInfo{
+    flex-direction: column;
+    justify-content:space-around;
+    height: auto;
+	width: 100%;
+}
+.descripcion{
+    margin-bottom: 20px;
+}
+.rating{
+    background: #6D6875;
+    padding: 5px;
+    color: #f7d9c9;
+	padding: 10px;
+	font-weight: bold;
+	border-radius: 15px;
+}
+.btn{
+    min-height: 50px;
+    background-color: rgba(0,0,0,0.92);
+    display: inline;
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    width: fit-content;
+    padding: 10px 15px;
+    color: #03e9f4;
+    transition: 0.5s;
+    letter-spacing: 4px;
+    cursor: pointer;
+}
+@media (max-width: 600px) {
+    .Cardvideogame{
+        display: flex;
+        flex-direction: column;
+        width: 80%;
+    }
+    .Detailvideogame{
+        width: 80%;
+    }
+    .imagenDetail{
+        width: 100%;
+        height: 100%;
+    }
+}
+

@@ -1,0 +1,43 @@
+.buscar{
+    margin: 5%;
+    margin-top: 10%;
+}
+.buscar input{
+    padding: 25px 30px;
+    font-size: 24px;
+    width: 80%;
+    border-radius: 30px;
+    background: rgba(0, 0, 0, 0.95);;
+    margin: 0 20px;
+    border: 1px solid white;
+    color:white;
+    padding: 15px;
+}
+.buscar input:hover{
+    background: gray;
+    color: black;
+    cursor: pointer;
+}
+
+::placeholder {
+    color:beige;
+    padding: 4px;
+}
+
+.btn {
+    border: none;
+    cursor: pointer;
+    transition: width 4s, height 1s, transform 2s;
+    width: 30px;
+    height: 30px;
+}
+
+.btn img {
+    height: 65px;
+    margin: -18px;
+}
+.btn:hover {
+    width: 70px;
+    height: 70px;
+    transform: rotate(360deg);
+}

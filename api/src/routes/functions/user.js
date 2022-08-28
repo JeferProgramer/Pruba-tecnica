@@ -1,49 +1,85 @@
-const {User} = require('../../db')
 const fetch = require('node-fetch');
 const {API_KEY} = process.env;
 const {Op} = require('sequelize');
 const {v4: uuidv4} = require('uuid');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const {User} = require('../../db')
 async function getUserById(req, res)  {
     const idUser = req.params.id;
-    Videogame.findByPk(idUser)
+    User.findByPk(idUser)
         //debe el tener una asociacion a generos
         .then(user => res.json(user))
         .catch(e => console.log(e))
 }
-async function login(req, res)  {
-  const {  email, password } = req.body
-
-  console.log(req.body)
-
-  // if(req.body.name === "asfo" && req.body.password === "holamundo") {
-  let user = await User.findOne({where:{email:email}} )
-  if ( user && user.password === password ){
-
-
-	const payload = {
-      email,
-      id: user.id,
-			// token: token,
-      name: user.name,
-      email: email,
-	};
-
-    /// uso el secreto del .env
-    console.log(process.env.TOKENSECRET)
-		const token = jwt.sign(payload, process.env.TOKENSECRET, {
-			expiresIn: 1440
-		});
-		res.json({
-			mensaje: 'Autenticación correcta',
-			token: token,
-            name: user.name,
-            email: email,
-		});
+const login = async (req, res) => {
+  const { email, password } = req.body;
+  try {
+    if (!email || !password) {
+      return res
+        .status(400)
+        .json({ error: "Email and Password are both required." });
     } else {
-        res.status(300).json({ mensaje: "Usuario o contraseña incorrectos"})
+      const user = await User.findAll({where:{ email: email }});
+      console.log('estes es el usuario  ' + user)
+
+      const passwordCorrect =
+        user === null ? false : await bcrypt.compare(password, user.password);
+
+      if (!(user && passwordCorrect)) {
+        res.status(401).json({
+          error: "invalid user or password",
+        });
+      } else {
+        const userForToken = {
+          id: user._id,
+        };
+
+        const token = jwt.sign(userForToken, process.env.SECRETWORD, {
+          expiresIn: 60 * 60 * 24 * 7,
+        });
+
+        res.send({
+          name: user.firstName && user.lastName ? `${user.firstName} ${user.lastName}` : null,
+          // name: `${user?.firstName} ${user?.lastName}`,
+          email: user.email ? user.email : null,
+          // email: user?.email,
+          token,
+        });
+      }
     }
+  } catch (error) {
+    console.error(error);
+  }
 };
+const createUser = async (req, res) => {
+  const {
+    name,
+    email,
+    password,
+  } = req.body;
+
+  try {
+    const userExist = await User.findAll({where:{ email: email }});
+    console.log(userExist)
+    if (userExist) {
+      return res.json({ error: "User already exists" });
+    } else {
+      const userClient = await User.create({
+        name: name,
+        email: email,
+        birthDate: birthdate,
+        password: password,
+      });
+      res.status(201).send("Welcome to our community, now you can sign in");
+    }
+  } catch (error) {
+    res.status(405).send(error);
+  }
+};
+
 module.exports = {
     getUserById,
-    login
+    login,
+    createUser
 }

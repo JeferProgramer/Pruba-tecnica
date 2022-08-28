@@ -1,5 +1,4 @@
 const {Artobjects} = require('../../db')
-const {Genres} = require('../../db')
 const fetch = require('node-fetch');
 const {API_KEY} = process.env;
 const {Op} = require('sequelize');
@@ -46,31 +45,13 @@ async function getAllArtObjects (req, res)  {
 
 const getMyDBArtObjects = (req, res) => {
     Artobjects.findAll()//para traernos los generos de ese juego
-        .then(videojuegos => res.json(videojuegos))
+        .then(objects => res.json(objects))
         .catch(e => console.log(e))
 }
 
-const addVideogame = async(req, res) => {
-    const {name, description, released, rating,platforms, genres} = req.body
-    console.log(name, description, released, rating,platforms, genres)
-    try {
-        //Creamos el juego
-        let newGame = await Artobjects.create({
-            //le paso el objeto con todos los atributos que quiero que tenga mi nuevo videojuego
-            name,
-            released,
-            rating,
-            platforms,
-            description
-        })
-        res.json(newGame);
-    } catch (e) {
-        console.log(e)
-    }
-}
+
 
 module.exports = {
     getAllArtObjects,
     getMyDBArtObjects,
-    addVideogame
 }

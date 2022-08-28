@@ -1,0 +1,10 @@
+.loading{
+    text-align: center;
+}
+.loading h1{
+    color: #000000;
+}
+.loading img{
+    width: 50%;
+    height: 50%;
+}
